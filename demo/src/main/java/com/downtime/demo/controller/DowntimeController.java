@@ -31,6 +31,7 @@ public class DowntimeController {
     // build create employee REST API
     @PostMapping("/create-downtime")
     public Downtime createDowntime(@RequestParam String provider, @RequestParam String flow, @RequestBody BodyData data) {
+        //CR: variable naming could be something better
         Downtime d = new Downtime();
         d.setProvider(provider);
         d.setFlow(flow);
@@ -51,6 +52,7 @@ public class DowntimeController {
     @GetMapping("/display-downtime/{provider}")
     public ResponseEntity<Downtime> getDowntimeByName(@PathVariable(value = "provider") String provider) throws ResourceNotFoundException{
 
+        //CR Please follow same convention
         if(downtimerepo.findByPName(provider)!=null)
         {
             Downtime downtime = downtimerepo.findByPName(provider);
@@ -61,12 +63,14 @@ public class DowntimeController {
     }
 
 
+    //CR: Please wrap the code in 80/120 chars so that it is readable without scrollung.
     // build update employee REST API
     @PutMapping("/update-downtime/{id}")
     public ResponseEntity<Downtime> updateDowntime(@PathVariable(value = "id") Long id, @RequestBody Downtime downtimeDetails) throws ResourceNotFoundException{
         Downtime updateDowntime = downtimerepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No downtime with id: " + id));
 
+        //CR: Please use braces always
         if(downtimeDetails.getProvider()!=null)
             updateDowntime.setProvider(downtimeDetails.getProvider());
         if(downtimeDetails.getFlow()!=null)
@@ -88,7 +92,7 @@ public class DowntimeController {
         {
             Downtime updateDowntime = downtimerepo.findByPName(provider);
 
-
+            //CR: Please use braces always
             if(downtimeDetails.getProvider()!=null)
                 updateDowntime.setProvider(downtimeDetails.getProvider());
             if(downtimeDetails.getFlow()!=null)
@@ -102,6 +106,7 @@ public class DowntimeController {
 
             return ResponseEntity.ok(updateDowntime);
         }
+        //CR: what would be visible in error scenarios to the API client? Please think on that part and remodel this response
         ResourceNotFoundException er = new ResourceNotFoundException("Provider does not exist with name: " + provider);
         throw er;
 
@@ -137,6 +142,7 @@ public class DowntimeController {
 
             return response;
         }
+        //CR: what would be visible in error scenarios to the API client? Please think on that part and remodel this response
         ResourceNotFoundException er = new ResourceNotFoundException("Provider does not exist with name: " + provider);
         throw er;
     }

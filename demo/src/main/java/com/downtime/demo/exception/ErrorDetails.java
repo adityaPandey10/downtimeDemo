@@ -15,6 +15,7 @@ public class ErrorDetails {
         this.details = details;
     }
 
+    //CR: Why no getters here?
     public Date getTimestamp() {
         return timestamp;
     }
